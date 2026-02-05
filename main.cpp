@@ -6,13 +6,15 @@
 
 #include "blelloch.h"
 
-#define N 16
-
+// #define N 8
+// #define N 64
+// #define N 256
+#define N 1024
 int main()
 {
   using clock = std::chrono::high_resolution_clock;
 
-  fmt::print("Configuracion: N = {}\n", N);
+  fmt::println("Configuracion: N = {}", N);
   fflush(stdout);
 
   std::vector<int> datos_base(N);
@@ -22,31 +24,39 @@ int main()
   auto v_serial = datos_base;
   auto v_omp_scalar = datos_base;
   auto v_simd = datos_base;
+  auto v_omp_simd = datos_base;
 
   const auto t0 = clock::now();
   blelloch_serial(v_serial);
   const double tiempo_serial = std::chrono::duration<double>(clock::now() - t0).count();
-  fmt::print("Serial:     {}\n", v_serial);
+  fmt::println("Serial:     {}\n", v_serial);
   fflush(stdout);
 
   const auto t1 = clock::now();
   blelloch_openMP_regiones_paralelas(v_omp_scalar);
   const double tiempo_omp = std::chrono::duration<double>(clock::now() - t1).count();
-  fmt::print("OMP Scalar: {}\n", v_omp_scalar);
+  fmt::println("OMP RP:     {}\n", v_omp_scalar);
   fflush(stdout);
 
   const auto t2 = clock::now();
-  blelloch_simd(v_simd.data());
+  blelloch_simd(v_simd.data(), static_cast<int>(v_simd.size()));
   const double tiempo_simd = std::chrono::duration<double>(clock::now() - t2).count();
-  fmt::print("SIMD:       {}\n", v_simd);
+  fmt::println("SIMD:       {}\n", v_simd);
   fflush(stdout);
 
-  fmt::println("\nComparativa de tiempos (s):");
+  const auto t3 = clock::now();
+  blelloch_openMP_regiones_paralelas_simd(v_omp_simd);
+  const double tiempo_omp_simd = std::chrono::duration<double>(clock::now() - t3).count();
+  fmt::println("OMP RP SIMD: {}\n", v_omp_simd);
+  fflush(stdout);
+
+  fmt::println("\nComparativa de tiempos (ms):");
   fmt::println("Metodo             Tiempo");
   fmt::println("----------------------------");
-  fmt::println("Serial             {:.6f}", tiempo_serial);
-  fmt::println("OMP Scalar         {:.6f}", tiempo_omp);
-  fmt::println("SIMD               {:.6f}", tiempo_simd);
+  fmt::println("Serial             {:.6f}", tiempo_serial * 1000);
+  fmt::println("OMP RP             {:.6f}", tiempo_omp * 1000);
+  fmt::println("SIMD               {:.6f}", tiempo_simd * 1000);
+  fmt::println("OMP RP SIMD        {:.6f}", tiempo_omp_simd * 1000);
 
   return 0;
 }
