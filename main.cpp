@@ -1,7 +1,7 @@
 #include <fmt/core.h>
 #include <fmt/ranges.h>
 #include <vector>
-#include <cstdio> // fflush
+#include <cstdio>
 #include <chrono>
 
 #include "blelloch.h"
@@ -24,19 +24,19 @@ int main()
   auto v_simd = datos_base;
 
   const auto t0 = clock::now();
-  blellochSerial(v_serial);
+  blelloch_serial(v_serial);
   const double tiempo_serial = std::chrono::duration<double>(clock::now() - t0).count();
   fmt::print("Serial:     {}\n", v_serial);
   fflush(stdout);
 
   const auto t1 = clock::now();
-  blellochOpenMP_Scalar(v_omp_scalar);
+  blelloch_openMP_regiones_paralelas(v_omp_scalar);
   const double tiempo_omp = std::chrono::duration<double>(clock::now() - t1).count();
   fmt::print("OMP Scalar: {}\n", v_omp_scalar);
   fflush(stdout);
 
   const auto t2 = clock::now();
-  blelloch_simd_8(v_simd.data());
+  blelloch_simd(v_simd.data());
   const double tiempo_simd = std::chrono::duration<double>(clock::now() - t2).count();
   fmt::print("SIMD:       {}\n", v_simd);
   fflush(stdout);

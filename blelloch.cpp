@@ -1,12 +1,11 @@
 #include "blelloch.h"
-
 #include <algorithm>
 #include <cmath>
 #include <immintrin.h>
 #include <omp.h>
 #include <vector>
 
-void blellochSerial(std::vector<int> &v)
+void blelloch_serial(std::vector<int> &v)
 {
   const int n = static_cast<int>(v.size());
   const int levels = static_cast<int>(std::log2(n));
@@ -36,7 +35,7 @@ void blellochSerial(std::vector<int> &v)
   }
 }
 
-void blellochOpenMP_Scalar(std::vector<int> &v)
+void blelloch_openMP_regiones_paralelas(std::vector<int> &v)
 {
   const int n = static_cast<int>(v.size());
   const int max_threads = omp_get_max_threads();
@@ -85,7 +84,7 @@ void blellochOpenMP_Scalar(std::vector<int> &v)
   }
 }
 
-void blelloch_simd_8(int *data)
+void blelloch_simd(int *data)
 {
   __m256i v = _mm256_loadu_si256(reinterpret_cast<__m256i *>(data));
 

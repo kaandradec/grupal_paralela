@@ -4,8 +4,8 @@
 
 #include <vector>
 
-void blellochSerial(std::vector<int> &v);
-void blellochOpenMP_Scalar(std::vector<int> &v);
-void blelloch_simd_8(int *data);
+void blelloch_serial(std::vector<int> &v);
+void blelloch_openMP_regiones_paralelas(std::vector<int> &v);
+void blelloch_simd(int *data);
 
 #endif // BLELLOCH_H
