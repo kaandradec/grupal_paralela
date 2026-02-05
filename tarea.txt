@@ -1,0 +1,38 @@
+Histograma
+
+Scan: 
+
+1. Hillis Steele
+2. Blelloch
+
+Implementaciones
+
+1. Serial
+2. SIMD
+3. OpenMP (Regiones paralelas)
+4. OpenMP
+5. MPI (Comunicación punto a punto + Colectiva)
+
+Tabla con los tiempos con vectores grandes
+
+Histograma ancho variable de ARBITRAIO (cuantas veces se repite un valor, ancho arbitraio quiere decir que si tengo 10 medidas abra muchos que se repitan en algunas barras)
+
+Scan 
+
+En este ejemplo el operador es el + 
+
+Dados 2 vectores
+
+X sub i es el resultado original
+
+Y sub i  , y sub i -1
+
+Y_i = y_i-1 + x_i
+
+Existen dos variaciones del Scan: Hillis, Blelloch
+
+SIMD con vectores 8 elementos (256)
+
+Regiones paralelas, no con for paralelos
+
+Una tabla midiendo los tiempos
