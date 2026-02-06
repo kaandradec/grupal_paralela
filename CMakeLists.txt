@@ -17,3 +17,5 @@ add_executable(grupal
 # fmt
 find_package(fmt CONFIG REQUIRED)
 target_link_libraries(grupal PRIVATE fmt::fmt)
+
+
