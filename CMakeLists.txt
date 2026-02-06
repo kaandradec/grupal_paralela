@@ -12,6 +12,7 @@ add_executable(grupal
     main.cpp
     blelloch.cpp
     histograma.cpp
+    hillis_steele.cpp
 )
 
 # fmt

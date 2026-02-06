@@ -6,7 +6,7 @@
 #include <vector>
 #include <cstdint>
 
-// 1. Serial: Inclusive Scan estándar O(N)
+// 1. Serial: Inclusive Scan estándar O(W)
 void hillis_steele_serial(std::vector<int> &v);
 
 // 2. SIMD: Hillis & Steele paralelo vectorizado (AVX2)
