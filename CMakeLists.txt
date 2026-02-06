@@ -11,6 +11,7 @@ set(VCPKG_TARGET_TRIPLET "x64-mingw-dynamic")
 add_executable(grupal
     main.cpp
     blelloch.cpp
+    histograma.cpp
 )
 
 # fmt
